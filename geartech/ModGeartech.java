@@ -15,6 +15,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import gearteam.geartech.client.handlers.ClientPacketHandler;
+import gearteam.geartech.gear.Gear;
 import gearteam.geartech.handlers.ServerPacketHandler;
 
 @NetworkMod(clientSideRequired=true,serverSideRequired=false,
@@ -37,6 +38,7 @@ public class ModGeartech {
     @Mod.Init
     public void init(FMLInitializationEvent event) {
         NetworkRegistry.instance().registerGuiHandler(this, proxy); //Registers the class that deals with GUI data
+        Gear.load();
     }
     
     @Mod.PostInit
