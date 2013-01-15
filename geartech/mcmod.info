@@ -1,0 +1,17 @@
+[
+{
+  "modid": "geartech",
+  "name": "Geartech",
+  "description": "A Minecraft mod that adds gears, pipes, and other awesome mechanical things!",
+  "version": "Unreleased",
+  "mcversion": "1.4.7",
+  "logoFile": "/gearteam/geartech/logo.png",
+  "url": "",
+  "updateUrl": "",
+  "authors": ["Floppygunk", "Ninten-Droid"],
+  "credits": "Made by the Geartech-Team",
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
