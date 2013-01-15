@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="Geartech" basedir="../../../../../" default="build">
+
+	<!-- Properties -->
+
+	<property name="version" value="Unreleased" />
+
+	<property name="build.dir" location="./build" />
+
+	<property name="python" location="mcp/runtime/bin/python/python_mcp.exe" />
+
+	<!-- Targets -->
+
+	<target name="build" depends="clean, recompile, reobfuscate, zip">
+		
+		<echo message="MCP Ant Build Completed!" />
+	
+	</target>
+
+	<target name="clean">
+
+		<delete dir="${build.dir}" />
+		<delete dir="mcp/reobf" />
+
+		<mkdir dir="${build.dir}" />
+
+	</target>
+
+	<target name="recompile">
+
+		<exec executable="${python}" dir="mcp">
+
+			<arg value="runtime/recompile.py"/>
+			<arg value="%*"/>
+
+		</exec>
+
+	</target>
+
+	<target name="reobfuscate">
+
+		<exec executable="${python}" dir="mcp">
+
+			<arg value="runtime/reobfuscate.py"/>
+			<arg value="%*"/>
+
+		</exec>
+
+	</target>
+
+	<target name="zip">
+
+		<copy todir="${build.dir}">
+
+			<fileset dir="mcp/reobf/minecraft" excludes=".git/**" />
+			<fileset dir="mcp/src/minecraft/gearteam/geartech">
+
+				<exclude name=".git/**"/>
+				<exclude name="client/**"/>
+				<exclude name="gear/**"/>
+				<exclude name="handlers/**"/>
+				<exclude name="*.java"/>
+				<exclude name="*.xml"/>
+				<exclude name="*.md"/>
+
+			</fileset>
+
+		</copy>
+
+		<jar destfile="${build.dir}/${ant.project.name}-${version}.zip" duplicate="preserve" manifestencoding="UTF-8">
+
+			<fileset dir="${build.dir}" />
+
+		</jar>
+
+	</target>
+
+</project>
