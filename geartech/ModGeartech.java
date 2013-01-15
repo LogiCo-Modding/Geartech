@@ -35,6 +35,7 @@ public class ModGeartech {
     public void init(FMLInitializationEvent event) {
         NetworkRegistry.instance().registerGuiHandler(this, proxy); //Registers the class that deals with GUI data
         Gear.load();
+        proxy.registerTiles();
     }
     
     @Mod.PostInit
