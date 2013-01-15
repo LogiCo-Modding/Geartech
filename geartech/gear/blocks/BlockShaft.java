@@ -19,7 +19,7 @@ public class BlockShaft extends Block {
         setBlockName("gearShaft");
         //setBlockBounds(1F, 0.25F, 0.25F, -1F, -0.25F, -0.25F);
         setCreativeTab(CreativeTabs.tabMisc);
-        setBlockBounds(0F, 0.375F, 0.375F, 1F, 0.625F, 0.625F);
+        setBlockBounds(0F, 0.4375F, 0.4375F, 1F, 0.5625F, 0.5625F);
     }
     
     public TileEntity createNewTileEntity(World world) {

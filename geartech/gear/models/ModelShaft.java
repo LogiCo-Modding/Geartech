@@ -14,15 +14,15 @@ import org.lwjgl.opengl.GL11;
 public class ModelShaft extends ModelBase {
     private final ModelRenderer shaft;
     
-    private static final int TEXTURE_HEIGHT = 8;
-    private static final int TEXTURE_WIDTH = 40;
+    private static final int TEXTURE_HEIGHT = 4;
+    private static final int TEXTURE_WIDTH = 36;
     
     public ModelShaft() {
         this.textureHeight = TEXTURE_HEIGHT;
         this.textureWidth = TEXTURE_WIDTH;
         
         shaft = new ModelRenderer(this, 0, 0);
-        shaft.addBox(0, 6, 6, 16, 4, 4);
+        shaft.addBox(0, 7, 7, 16, 2, 2);
         shaft.rotationPointX = 0;
         shaft.rotationPointY = 0;
         shaft.rotationPointZ = 0;
