@@ -12,6 +12,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 import gearteam.geartech.client.handlers.ClientPacketHandler;
 import gearteam.geartech.gear.Gear;
 import gearteam.geartech.handlers.ServerPacketHandler;
+import gearteam.geartech.CommonProxy;
 
 @NetworkMod(clientSideRequired=true,serverSideRequired=false,
 clientPacketHandlerSpec = @SidedPacketHandler(channels = {"TutorialGeneral" }, packetHandler = ClientPacketHandler.class),
@@ -22,7 +23,7 @@ public class ModGeartech {
     @Instance("geartech")
     public static ModGeartech instance = new ModGeartech();
     
-    @SidedProxy(clientSide = "deverionx.tutorial.client.ClientProxy", serverSide = "geartech.gearteam.CommonProxy")
+    @SidedProxy(clientSide = "gearteam.geartech.client.ClientProxy", serverSide = "gearteam.geartech.CommonProxy")
     public static CommonProxy proxy;
     
     @Mod.PreInit
