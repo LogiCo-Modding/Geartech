@@ -63,6 +63,23 @@
 				<exclude name="*.java"/>
 				<exclude name="*.xml"/>
 				<exclude name="*.md"/>
+				<exclude name="*.png"/>
+
+			</fileset>
+
+		</copy>
+
+		<copy todir="${build.dir}/gearteam/geartech">
+
+			<fileset dir="mcp/src/minecraft/gearteam/geartech">
+
+				<exclude name=".git/**"/>
+				<exclude name="client/**"/>
+				<exclude name="gear/**"/>
+				<exclude name="handlers/**"/>
+				<exclude name="*.java"/>
+				<exclude name="*.xml"/>
+				<exclude name="*.md"/>
 
 			</fileset>
 
