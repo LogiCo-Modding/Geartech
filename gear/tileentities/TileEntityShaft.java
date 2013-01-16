@@ -16,7 +16,7 @@ public class TileEntityShaft extends TileEntity {
 
 	}
 
-	public int getRotation(final int speed) {
+	public int getRotation() {
 
 		return rotation;
 
