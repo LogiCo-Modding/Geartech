@@ -6,17 +6,11 @@
 
 	<property name="version" value="Unreleased" />
 
-	<property name="build.dir" location="./build" />
-
-	<property name="python" location="mcp/runtime/bin/python/python_mcp.exe" />
+	<property name="build.dir" location="build" />
 
 	<!-- Targets -->
 
-	<target name="build" depends="clean, recompile, reobfuscate, zip">
-		
-		<echo message="MCP Ant Build Completed!" />
-	
-	</target>
+	<target name="build" depends="clean, processclasses, zip"></target>
 
 	<target name="clean">
 
@@ -27,25 +21,15 @@
 
 	</target>
 
-	<target name="recompile">
+	<target name="processclasses">
 
-		<exec executable="${python}" dir="mcp">
+		<exec executable="recompile.bat" dir="mcp" resolveexecutable="true" osfamily="windows"></exec>
 
-			<arg value="runtime/recompile.py"/>
-			<arg value="%*"/>
+		<exec executable="reobfuscate.bat" dir="mcp" resolveexecutable="true" osfamily="windows"></exec>
 
-		</exec>
+		<exec executable="recompile.sh" dir="mcp" resolveexecutable="true" osfamily="unix"></exec>
 
-	</target>
-
-	<target name="reobfuscate">
-
-		<exec executable="${python}" dir="mcp">
-
-			<arg value="runtime/reobfuscate.py"/>
-			<arg value="%*"/>
-
-		</exec>
+		<exec executable="reobfuscate.sh" dir="mcp" resolveexecutable="true" osfamily="unix"></exec>
 
 	</target>
 
@@ -85,11 +69,11 @@
 
 		</copy>
 
-		<jar destfile="${build.dir}/${ant.project.name}-${version}.zip" duplicate="preserve" manifestencoding="UTF-8">
+		<zip destfile="${build.dir}/${ant.project.name}-${version}.zip">
 
 			<fileset dir="${build.dir}" />
 
-		</jar>
+		</zip>
 
 	</target>
 
