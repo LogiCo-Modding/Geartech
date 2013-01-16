@@ -18,7 +18,6 @@ public class BlockShaft extends Block {
 
 		super(id, Material.iron);
 		setBlockName("gearShaft");
-		//setBlockBounds(1F, 0.25F, 0.25F, -1F, -0.25F, -0.25F);
 		setCreativeTab(CreativeTabs.tabMisc);
 		setBlockBounds(0F, 0.4375F, 0.4375F, 1F, 0.5625F, 0.5625F);
 
