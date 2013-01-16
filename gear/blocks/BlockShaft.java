@@ -7,10 +7,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 
 import net.minecraft.tileentity.TileEntity;
 
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 
 public class BlockShaft extends Block {
 
@@ -29,6 +31,20 @@ public class BlockShaft extends Block {
 
 	}
 
+        @Override public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float clickX, final float clickY, final float clickZ ) {
+            
+                TileEntityShaft tileShaft = (TileEntityShaft) world.getBlockTileEntity(x, y, z);
+                if (ForgeDirection.getOrientation(side) == ForgeDirection.NORTH) {
+                        tileShaft.changeRotationSpeedBy(2);
+                        return true;
+                } else if (ForgeDirection.getOrientation(side) == ForgeDirection.SOUTH) {
+                        tileShaft.changeRotationSpeedBy(-2);
+                        return true;
+                }
+                return false;
+                
+        }
+        
 	@Override public void onBlockAdded (final World world, final int x, final int y, final int z) {
 
 		super.onBlockAdded(world, x, y, z);
