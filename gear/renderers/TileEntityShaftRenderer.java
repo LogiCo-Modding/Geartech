@@ -18,8 +18,9 @@ import net.minecraft.tileentity.TileEntity;
 	private final ModelShaft modelShaft = new ModelShaft();
 
 	@Override public void renderTileEntityAt (final TileEntity tileEntity, final double x, final double y, final double z, final float tick) {
-
-		modelShaft.render((TileEntityShaft) tileEntity, x, y, z);
+            
+                TileEntityShaft tileShaft = (TileEntityShaft) tileEntity;
+		modelShaft.render(tileShaft, x, y, z, tileShaft.getRotation());
 
 	}
 
