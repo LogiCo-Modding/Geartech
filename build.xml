@@ -2,26 +2,12 @@
 
 <project name="Geartech" basedir="../../../../../" default="build">
 
-	<!-- Properties -->
+	<target name="build">
 
-	<property name="version" value="Unreleased" />
-
-	<property name="build.dir" location="build" />
-
-	<!-- Targets -->
-
-	<target name="build" depends="clean, processclasses, zip"></target>
-
-	<target name="clean">
-
-		<delete dir="${build.dir}" />
+		<delete dir="build" />
 		<delete dir="mcp/reobf" />
 
-		<mkdir dir="${build.dir}" />
-
-	</target>
-
-	<target name="processclasses">
+		<mkdir dir="build" />
 
 		<exec executable="recompile.bat" dir="mcp" resolveexecutable="true" osfamily="windows"></exec>
 
@@ -31,11 +17,7 @@
 
 		<exec executable="reobfuscate.sh" dir="mcp" resolveexecutable="true" osfamily="unix"></exec>
 
-	</target>
-
-	<target name="zip">
-
-		<copy todir="${build.dir}">
+		<copy todir="build">
 
 			<fileset dir="mcp/reobf/minecraft" excludes=".git/**" />
 			<fileset dir="mcp/src/minecraft/gearteam/geartech">
@@ -44,34 +26,34 @@
 				<exclude name="client/**"/>
 				<exclude name="gear/**"/>
 				<exclude name="handlers/**"/>
-				<exclude name="*.java"/>
-				<exclude name="*.xml"/>
-				<exclude name="*.md"/>
-				<exclude name="*.png"/>
+				<exclude name="**/*.java"/>
+				<exclude name="**/*.xml"/>
+				<exclude name="**/*.md"/>
+				<exclude name="**/*.png"/>
 
 			</fileset>
 
 		</copy>
 
-		<copy todir="${build.dir}/gearteam/geartech">
+		<copy todir="build/gearteam/geartech">
 
 			<fileset dir="mcp/src/minecraft/gearteam/geartech">
 
 				<exclude name=".git/**"/>
 				<exclude name="client/**"/>
-				<exclude name="gear/**"/>
 				<exclude name="handlers/**"/>
-				<exclude name="*.java"/>
-				<exclude name="*.xml"/>
-				<exclude name="*.md"/>
+                <exclude name="**/*.java"/>
+				<exclude name="**/*.xml"/>
+				<exclude name="**/*.md"/>
+				<exclude name="**/*.info"/>
 
 			</fileset>
 
 		</copy>
 
-		<zip destfile="${build.dir}/${ant.project.name}-${version}.zip">
+		<zip destfile="build/${ant.project.name}-Unreleased.zip">
 
-			<fileset dir="${build.dir}" />
+			<fileset dir="build" />
 
 		</zip>
 
