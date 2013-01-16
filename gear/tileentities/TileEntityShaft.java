@@ -7,7 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 public class TileEntityShaft extends TileEntity {
 
 	private int rotation;
-	private int rotationSpeed;
+	private float rotationSpeed;
 
 	public TileEntityShaft() {
 
@@ -22,24 +22,36 @@ public class TileEntityShaft extends TileEntity {
 
 	}
 
-	public int getRotationSpeed() {
+	public float getRotationSpeed() {
 
 		return rotationSpeed;
 
 	}
 
-	public void setRotationSpeed (final int speed) {
+	public void setRotationSpeed (final float speed) {
 
 		rotationSpeed = speed;
 
 	}
-
+        
+        public void changeRotationSpeedBy (final float deltaSpeed) {
+            
+                rotationSpeed += deltaSpeed;
+            
+        }
+        
+        @Override public void updateEntity() {
+            
+                this.rotation += rotationSpeed % 360;
+                
+        }
+        
 	@Override public void readFromNBT (final NBTTagCompound tagCompound) {
 
 		super.readFromNBT(tagCompound);
 
 		rotation = tagCompound.getInteger("Direction");
-		rotationSpeed = tagCompound.getInteger("RotationSpeed");
+		rotationSpeed = tagCompound.getFloat("RotationSpeed");
 
 	}
 
@@ -48,7 +60,7 @@ public class TileEntityShaft extends TileEntity {
 		super.writeToNBT(tagCompound);
 
 		tagCompound.setInteger("Direction", rotation);
-		tagCompound.setInteger("RotationSpeed", rotationSpeed);
+		tagCompound.setFloat("RotationSpeed", rotationSpeed);
 
 	}
 
