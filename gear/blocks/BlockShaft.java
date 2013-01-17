@@ -25,13 +25,13 @@ public class BlockShaft extends Block {
 
 	}
 
-	public TileEntity createNewTileEntity (final World world) {
+	public TileEntity createNewTileEntity (final World world, final int x, final int y, final int z, final ForgeDirection side) {
 
-		return new TileEntityShaft();
+		return new TileEntityShaft(world, x, y, z, side);
 
 	}
 
-        @Override public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float clickX, final float clickY, final float clickZ ) {
+        @Override public boolean onBlockActivated(final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX, final float hitY, final float hitZ ) {
             
                 TileEntityShaft tileShaft = (TileEntityShaft) world.getBlockTileEntity(x, y, z);
                 if (ForgeDirection.getOrientation(side) == ForgeDirection.NORTH) {
@@ -45,11 +45,11 @@ public class BlockShaft extends Block {
                 
         }
         
-	@Override public void onBlockAdded (final World world, final int x, final int y, final int z) {
-
-		super.onBlockAdded(world, x, y, z);
-		world.setBlockTileEntity(x, y, z, createNewTileEntity(world));
-
+	@Override public int onBlockPlaced (final World world, final int x, final int y, final int z, final int side, final float hitX, final float hitY, final float hitZ, final int metadata) {
+                
+		world.setBlockTileEntity(x, y, z, createNewTileEntity(world, x, y, z, ForgeDirection.getOrientation(side)));
+                return metadata;
+                
 	}
 
 	@Override public void breakBlock (final World par1World, final int par2, final int par3, final int par4, final int par5, final int par6) {
@@ -91,7 +91,7 @@ public class BlockShaft extends Block {
 
 	@Override public TileEntity createTileEntity (final World world, final int metadata) {
 
-		return createNewTileEntity(world);
+		return createNewTileEntity(world, 0, 0, 0, ForgeDirection.UNKNOWN);
 
 	}
 
