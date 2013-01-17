@@ -1,5 +1,6 @@
 package gearteam.geartech.gear.tileentities;
 
+import gearteam.geartech.Orientation;
 import java.util.HashSet;
 import java.util.Set;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,32 +15,6 @@ public class TileEntityShaft extends TileEntity {
 	private float rotationSpeed;
         
         private Set<ForgeDirection> connectedSides = new HashSet<ForgeDirection>();
-        
-        public enum Orientation {
-            X_AXIS(ForgeDirection.WEST),
-            Y_AXIS(ForgeDirection.UP),
-            Z_AXIS(ForgeDirection.NORTH),
-            UNKNOWN(ForgeDirection.UNKNOWN);
-            
-            public ForgeDirection defaultSide;
-            
-            public static Orientation fromDirection(final ForgeDirection direction) {
-                if (direction.offsetX != 0) {
-                    return Orientation.X_AXIS;
-                }
-                if (direction.offsetY != 0) {
-                    return Orientation.Y_AXIS;
-                }
-                if (direction.offsetZ != 0) {
-                    return Orientation.Z_AXIS;
-                }
-                return Orientation.UNKNOWN;
-            }
-            
-            Orientation(final ForgeDirection defaultSide) {
-                this.defaultSide = defaultSide;
-            }
-        }
         
         private Orientation orientation;
 
