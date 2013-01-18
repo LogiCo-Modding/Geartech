@@ -1,11 +1,11 @@
-package gearteam.geartech.gear.client;
+package logico.geartech.gear.client;
 
+import logico.geartech.gear.renderers.TileEntityShaftRenderer;
+import logico.geartech.gear.tileentities.TileEntityShaft;
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
-import gearteam.geartech.gear.renderers.TileEntityShaftRenderer;
 
-import gearteam.geartech.gear.tileentities.TileEntityShaft;
 
 public class ClientProxyGear {
 

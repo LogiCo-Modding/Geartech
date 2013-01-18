@@ -1,4 +1,4 @@
-package gearteam.geartech.gear.tileentities;
+package logico.geartech.gear.tileentities;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 

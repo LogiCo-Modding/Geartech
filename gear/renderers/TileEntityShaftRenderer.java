@@ -1,13 +1,13 @@
-package gearteam.geartech.gear.renderers;
+package logico.geartech.gear.renderers;
 
+import logico.geartech.gear.client.ClientProxyGear;
+import logico.geartech.gear.models.ModelShaft;
+import logico.geartech.gear.tileentities.TileEntityShaft;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-import gearteam.geartech.gear.client.ClientProxyGear;
 
-import gearteam.geartech.gear.models.ModelShaft;
 
-import gearteam.geartech.gear.tileentities.TileEntityShaft;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 

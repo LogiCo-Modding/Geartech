@@ -1,8 +1,8 @@
-package gearteam.geartech.client;
+package logico.geartech.client;
 
-import gearteam.geartech.CommonProxy;
+import logico.geartech.CommonProxy;
+import logico.geartech.gear.client.ClientProxyGear;
 
-import gearteam.geartech.gear.client.ClientProxyGear;
 
 public class ClientProxy extends CommonProxy {
 

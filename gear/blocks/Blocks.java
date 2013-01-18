@@ -1,4 +1,4 @@
-package gearteam.geartech.gear.blocks;
+package logico.geartech.gear.blocks;
 
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;

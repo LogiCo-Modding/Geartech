@@ -1,8 +1,9 @@
-package gearteam.geartech.gear.tileentities;
+package logico.geartech.gear.tileentities;
 
-import gearteam.geartech.Orientation;
 import java.util.HashSet;
 import java.util.Set;
+
+import logico.geartech.Orientation;
 import net.minecraft.nbt.NBTTagCompound;
 
 import net.minecraft.tileentity.TileEntity;

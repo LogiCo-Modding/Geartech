@@ -1,4 +1,4 @@
-package gearteam.geartech;
+package logico.geartech;
 
 import net.minecraftforge.common.ForgeDirection;
 

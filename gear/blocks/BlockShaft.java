@@ -1,7 +1,7 @@
-package gearteam.geartech.gear.blocks;
+package logico.geartech.gear.blocks;
 
-import gearteam.geartech.gear.client.ClientProxyGear;
-import gearteam.geartech.gear.tileentities.TileEntityShaft;
+import logico.geartech.gear.client.ClientProxyGear;
+import logico.geartech.gear.tileentities.TileEntityShaft;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

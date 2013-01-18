@@ -20,7 +20,7 @@
 		<copy todir="build">
 
 			<fileset dir="mcp/reobf/minecraft" excludes=".git/**" />
-			<fileset dir="mcp/src/minecraft/gearteam/geartech">
+			<fileset dir="mcp/src/minecraft/logico/geartech">
 
 				<exclude name=".git/**"/>
 				<exclude name="client/**"/>
@@ -35,9 +35,9 @@
 
 		</copy>
 
-		<copy todir="build/gearteam/geartech">
+		<copy todir="build/logico/geartech">
 
-			<fileset dir="mcp/src/minecraft/gearteam/geartech">
+			<fileset dir="mcp/src/minecraft/logico/geartech">
 
 				<exclude name=".git/**"/>
 				<exclude name="client/**"/>
@@ -51,7 +51,7 @@
 
 		</copy>
 
-		<zip destfile="build/${ant.project.name}-Unreleased.zip">
+		<zip destfile="build/${ant.project.name}-0.1.zip">
 
 			<fileset dir="build" />
 

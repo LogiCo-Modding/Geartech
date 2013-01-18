@@ -1,4 +1,4 @@
-package gearteam.geartech;
+package logico.geartech;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 

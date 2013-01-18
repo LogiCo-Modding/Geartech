@@ -1,6 +1,6 @@
-package gearteam.geartech.gear.models;
+package logico.geartech.gear.models;
 
-import gearteam.geartech.gear.tileentities.TileEntityShaft;
+import logico.geartech.gear.tileentities.TileEntityShaft;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

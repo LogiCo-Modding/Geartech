@@ -1,4 +1,4 @@
-package gearteam.geartech.client.handlers;
+package logico.geartech.client.handlers;
 
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;

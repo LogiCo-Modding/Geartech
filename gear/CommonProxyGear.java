@@ -1,3 +1,3 @@
-package gearteam.geartech.gear;
+package logico.geartech.gear;
 
 // Empty
