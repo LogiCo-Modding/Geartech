@@ -24,7 +24,7 @@ public class CommonProxy implements IGuiHandler {
 
 	public void registerTiles () {}
 
-	public void registerBlocks () { }
+	public void registerBlocks () {}
 
 	public void addNames () {}
 

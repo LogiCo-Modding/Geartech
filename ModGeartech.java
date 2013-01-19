@@ -16,10 +16,6 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-
-
-
-
 @NetworkMod(clientSideRequired=true,serverSideRequired=false,
 clientPacketHandlerSpec = @SidedPacketHandler(channels = {"TutorialGeneral" }, packetHandler = ClientPacketHandler.class),
 serverPacketHandlerSpec = @SidedPacketHandler(channels = {}, packetHandler = ServerPacketHandler.class))
@@ -43,10 +39,6 @@ public class ModGeartech {
 
 	}
 
-	@Mod.PostInit public void postInit (final FMLPostInitializationEvent event) {
-
-
-
-	}
+	@Mod.PostInit public void postInit (final FMLPostInitializationEvent event) {}
 
 }

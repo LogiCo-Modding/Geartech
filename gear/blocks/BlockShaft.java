@@ -15,8 +15,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
 public class BlockShaft extends BlockContainer {
-    
-	public BlockShaft(final int id) {
+
+	public BlockShaft (final int id) {
 
 		super(id, Material.iron);
 		setBlockName("gearShaft");
@@ -24,59 +24,68 @@ public class BlockShaft extends BlockContainer {
 		setBlockBounds(0F, 0.4375F, 0.4375F, 1F, 0.5625F, 0.5625F);
 
 	}
-        
-        public TileEntityShaft createNewTileEntity(World world, int x, int y, int z) {
-            TileEntityShaft newShaft = new TileEntityShaft();
-            newShaft.setWorldObj(world);
-            newShaft.setPosition(x, y, z);
-            return newShaft;
-        }
-        
-        @Override public TileEntityShaft createNewTileEntity(World world) {
-            return new TileEntityShaft();
-        }
 
-        @Override public boolean onBlockActivated (final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX, final float hitY, final float hitZ) {
-            
-                if (ForgeDirection.getOrientation(side) == ForgeDirection.NORTH) {
-                        ((TileEntityShaft) world.getBlockTileEntity(x, y, z)).changeRotationSpeedBy(2);
-                        return true;
-                } else if (ForgeDirection.getOrientation(side) == ForgeDirection.SOUTH) {
-                        ((TileEntityShaft) world.getBlockTileEntity(x, y, z)).changeRotationSpeedBy(-2);
-                        return true;
-                }
-                return false;
-                
-        }
-        
+	public TileEntityShaft createNewTileEntity (final World world, final int x, final int y, final int z) {
+
+		final TileEntityShaft newShaft = new TileEntityShaft();
+		newShaft.setWorldObj(world);
+		newShaft.setPosition(x, y, z);
+		return newShaft;
+
+	}
+
+	@Override public TileEntityShaft createNewTileEntity(final World world) {
+
+		return new TileEntityShaft();
+
+	}
+
+	@Override public boolean onBlockActivated (final World world, final int x, final int y, final int z, final EntityPlayer player, final int side, final float hitX, final float hitY, final float hitZ) {
+
+		if (ForgeDirection.getOrientation(side) == ForgeDirection.NORTH) {
+
+			((TileEntityShaft) world.getBlockTileEntity(x, y, z)).changeRotationSpeedBy(2);
+			return true;
+
+		} else if (ForgeDirection.getOrientation(side) == ForgeDirection.SOUTH) {
+
+			((TileEntityShaft) world.getBlockTileEntity(x, y, z)).changeRotationSpeedBy(-2);
+			return true;
+
+		}
+
+		return false;
+
+	}
+
 	/*@Override public int onBlockPlaced (final World world, final int x, final int y, final int z, final int side, final float hitX, final float hitY, final float hitZ, final int metadata) {
-                
+
                 tileX = x;
                 tileY = y;
                 tileZ = z;
                 tileSide = ForgeDirection.getOrientation(side);
                 return metadata;
-                
+
 	}*/
-        
-        @Override public void onBlockAdded(World world, int x, int y, int z) {
-            
-            world.setBlockTileEntity(x, y, z, createNewTileEntity(world, x, y, z));
-            ((TileEntityShaft) world.getBlockTileEntity(x, y, z)).updateConnections(world, x, y, z);
-            
-        }
-        
+
+	@Override public void onBlockAdded (final World world, final int x, final int y, final int z) {
+
+		world.setBlockTileEntity(x, y, z, createNewTileEntity(world, x, y, z));
+		((TileEntityShaft) world.getBlockTileEntity(x, y, z)).updateConnections(world, x, y, z);
+
+	}
+
 	@Override public void breakBlock (final World par1World, final int par2, final int par3, final int par4, final int par5, final int par6) {
 
 		super.breakBlock(par1World, par2, par3, par4, par5, par6);
 		par1World.removeBlockTileEntity(par2, par3, par4);
 
 	}
-        
-        @Override public void onNeighborBlockChange (World world, int x, int y, int z, int blockID) {
-            ((TileEntityShaft) world.getBlockTileEntity(x, y, z)).updateConnections(world, x, y, z);
-        }
-        
+
+	@Override public void onNeighborBlockChange (final World world, final int x, final int y, final int z, final int blockID) {
+		((TileEntityShaft) world.getBlockTileEntity(x, y, z)).updateConnections(world, x, y, z);
+	}
+
 	@Override public boolean isOpaqueCube () {
 
 		return false;
@@ -108,8 +117,8 @@ public class BlockShaft extends BlockContainer {
 	}
 
 	@Override public TileEntity createTileEntity (final World world, final int metadata) {
-            
-                return createNewTileEntity(world);
+
+		return createNewTileEntity(world);
 
 	}
 
