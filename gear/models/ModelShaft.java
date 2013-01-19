@@ -41,7 +41,7 @@ public class ModelShaft extends ModelBase {
                 // Orient the shaft in the right direction
                 GL11.glRotatef(90, 0, direction.offsetZ, direction.offsetY);
                 
-		ForgeHooksClient.bindTexture("/gearteam/geartech/gear/textures/shaft.png", 0);
+		ForgeHooksClient.bindTexture("/logico/geartech/gear/textures/shaft.png", 0);
 		shaft.render((float) (1.0 / 16.0));
 		GL11.glEnable(GL11.GL_LIGHTING);
 		GL11.glPopMatrix();
