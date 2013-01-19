@@ -71,7 +71,7 @@ public class BlockShaft extends BlockContainer {
 	@Override public void onBlockAdded (final World world, final int x, final int y, final int z) {
 
 		world.setBlockTileEntity(x, y, z, createNewTileEntity(world, x, y, z));
-		((TileEntityShaft) world.getBlockTileEntity(x, y, z)).updateConnections(world, x, y, z);
+		((TileEntityShaft) world.getBlockTileEntity(x, y, z)).updateConnections();
 
 	}
 
@@ -83,7 +83,7 @@ public class BlockShaft extends BlockContainer {
 	}
 
 	@Override public void onNeighborBlockChange (final World world, final int x, final int y, final int z, final int blockID) {
-		((TileEntityShaft) world.getBlockTileEntity(x, y, z)).updateConnections(world, x, y, z);
+		((TileEntityShaft) world.getBlockTileEntity(x, y, z)).updateConnections();
 	}
 
 	@Override public boolean isOpaqueCube () {

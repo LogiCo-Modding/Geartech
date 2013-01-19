@@ -77,7 +77,7 @@ public class TileEntityShaft extends TileEntity {
 
 	}
 
-	public void updateConnections (final World world, final int x, final int y, final int z, final ForgeDirection side) {
+	public void updateConnections (final ForgeDirection side) {
 
 		connectedSides.clear();
 		orientation = Orientation.UNKNOWN;
@@ -114,15 +114,15 @@ public class TileEntityShaft extends TileEntity {
 
 	}
 
-	public void updateConnections (final World world, final int x, final int y, final int z, final Orientation orientation) {
+	public void updateConnections (final Orientation orientation) {
 
-		updateConnections(world, x, y, z, orientation.defaultSide);
+		updateConnections(orientation.defaultSide);
 
 	}
 
-	public void updateConnections (final World world, final int x, final int y, final int z) {
+	public void updateConnections () {
 
-		updateConnections(world, x, y, z, orientation.defaultSide);
+		updateConnections(orientation.defaultSide);
 
 	}
 
