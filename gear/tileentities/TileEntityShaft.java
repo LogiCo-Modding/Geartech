@@ -151,7 +151,6 @@ public class TileEntityShaft extends TileEntity {
 		}
 
 		setConnectedOnSide(side);
-		connectingShaft.setConnectedOnSide(side.getOpposite());
 
 		return true;
 
