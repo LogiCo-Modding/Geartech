@@ -5,6 +5,9 @@ import java.util.Set;
 
 import logico.geartech.Orientation;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -12,30 +15,23 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityShaft extends TileEntity {
 
-	private int rotation;
-	private float rotationSpeed;
+	private int rotation = 0;
+	private float rotationSpeed = 0;
         
         private Set<ForgeDirection> connectedSides = new HashSet<ForgeDirection>();
         
-        private Orientation orientation;
-
-	/**
-        * @param side The side that the shaft was placed on
-        */
-        public TileEntityShaft(final World world, final int x, final int y, final int z, final ForgeDirection side) {
+        private Orientation orientation = Orientation.UNKNOWN;
+        
+        public TileEntityShaft() {
             
-                this.setWorldObj(world);
-		this.xCoord = x;
-                this.yCoord = y;
-                this.zCoord = z;
-                
-                rotation = 0;
-		rotationSpeed = 0;
-                
-                updateConnections(side.getOpposite());
-
-	}
-
+        }
+        
+        public void setPosition(int x, int y, int z) {
+            this.xCoord = x;
+            this.yCoord = y;
+            this.zCoord = z;
+        }
+        
 	public int getRotation() {
 
 		return rotation;
@@ -69,49 +65,58 @@ public class TileEntityShaft extends TileEntity {
         }
         
         protected void setConnectedOnSide(final ForgeDirection side) {
-            if (side.ordinal() >= 0 && side.ordinal() <= 6) {
+            if (side.ordinal() >= 0 && side.ordinal() <= 5) {
                 connectedSides.add(side);
                 orientation = Orientation.fromDirection(side);
             }
         }
         
-        private void dropConnectionOnSide(final ForgeDirection side) {
-            connectedSides.remove(side);
-        }
-        
-        public void updateConnections(final ForgeDirection side) {
+        public void updateConnections(World world, int x, int y, int z, final ForgeDirection side) {
             connectedSides.clear();
             orientation = Orientation.UNKNOWN;
             
-            tryConnectingOnAxisPreferringSide(side);
+            if (tryConnectingOnAxisPreferringSide(side)) {
+                return;
+            }
+            
+            boolean success = false;
+            
             switch (Orientation.fromDirection(side)) {
                 case X_AXIS:
-                    tryConnectingOnAxis(Orientation.Y_AXIS);
-                    tryConnectingOnAxis(Orientation.Z_AXIS);
+                    success = tryConnectingOnAxis(Orientation.Y_AXIS)
+                           || tryConnectingOnAxis(Orientation.Z_AXIS);
                     break;
                 case Y_AXIS:
-                    tryConnectingOnAxis(Orientation.X_AXIS);
-                    tryConnectingOnAxis(Orientation.Z_AXIS);
+                    success = tryConnectingOnAxis(Orientation.X_AXIS)
+                           || tryConnectingOnAxis(Orientation.Z_AXIS);
                     break;
                 case Z_AXIS:
-                    tryConnectingOnAxis(Orientation.X_AXIS);
-                    tryConnectingOnAxis(Orientation.Y_AXIS);
+                    success = tryConnectingOnAxis(Orientation.X_AXIS)
+                           || tryConnectingOnAxis(Orientation.Y_AXIS);
                     break;
                 case UNKNOWN:
-                    tryConnectingOnAxis(Orientation.X_AXIS);
-                    tryConnectingOnAxis(Orientation.Y_AXIS);
-                    tryConnectingOnAxis(Orientation.Z_AXIS);
+                    success = tryConnectingOnAxis(Orientation.X_AXIS)
+                           || tryConnectingOnAxis(Orientation.Y_AXIS)
+                           || tryConnectingOnAxis(Orientation.Z_AXIS);
                     break;
             }
                 
         }
         
+        public void updateConnections(World world, int x, int y, int z, Orientation orientation) {
+            updateConnections(world, x, y, z, orientation.defaultSide);
+        }
+        
+        public void updateConnections(World world, int x, int y, int z) {
+            updateConnections(world, x, y, z, orientation.defaultSide);
+        }
+        
         private boolean tryConnectingOnSide(final ForgeDirection side) {
-            if (side.ordinal() < 0 || side.ordinal() > 6) {
+            if (side.ordinal() < 0 || side.ordinal() > 5) {
                 return false;
             }
             
-            TileEntity tileEntity = this.worldObj.getBlockTileEntity(xCoord + side.offsetX, yCoord + side.offsetY, zCoord + side.offsetZ);
+            TileEntity tileEntity = worldObj.getBlockTileEntity(xCoord + side.offsetX, yCoord + side.offsetY, zCoord + side.offsetZ);
             
             if (!(tileEntity instanceof TileEntityShaft)) {
                 return false;
@@ -123,6 +128,7 @@ public class TileEntityShaft extends TileEntity {
             }
             setConnectedOnSide(side);
             connectingShaft.setConnectedOnSide(side.getOpposite());
+            
             return true;
         }
         
@@ -132,7 +138,11 @@ public class TileEntityShaft extends TileEntity {
         
         public boolean tryConnectingOnAxisPreferringSide(ForgeDirection side) {
                 
-                return tryConnectingOnSide(side) || tryConnectingOnSide(side.getOpposite());
+                // Each expression in a variable instead of or-ing them straight off
+                // because both functions need to be evaluated
+                boolean success1 = tryConnectingOnSide(side);
+                boolean success2 = tryConnectingOnSide(side.getOpposite());
+                return  success1 || success2;
                 
         }
         
@@ -142,13 +152,30 @@ public class TileEntityShaft extends TileEntity {
                 
         }
         
+        @Override public Packet getDescriptionPacket() {
+            NBTTagCompound tag = new NBTTagCompound();
+            this.writeToNBT(tag);
+            return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        }
+        
+        @Override public void onDataPacket(INetworkManager net, Packet132TileEntityData packet) {
+            
+            NBTTagCompound tag = packet.customParam1;
+            
+            orientation = Orientation.values()[tag.getInteger("Orientation")];
+            rotation = tag.getInteger("Direction");
+            rotationSpeed = tag.getFloat("RotationSpeed");
+            
+        }
+        
 	@Override public void readFromNBT (final NBTTagCompound tagCompound) {
 
 		super.readFromNBT(tagCompound);
 
 		rotation = tagCompound.getInteger("Direction");
 		rotationSpeed = tagCompound.getFloat("RotationSpeed");
-
+                orientation = Orientation.values()[tagCompound.getInteger("Orientation")];
+                
 	}
 
 	@Override public void writeToNBT (final NBTTagCompound tagCompound) {
@@ -156,7 +183,8 @@ public class TileEntityShaft extends TileEntity {
 		super.writeToNBT(tagCompound);
 
 		tagCompound.setInteger("Direction", rotation);
-		tagCompound.setFloat("RotationSpeed", rotationSpeed);
+                tagCompound.setFloat("RotationSpeed", rotationSpeed);
+                tagCompound.setInteger("Orientation", orientation.ordinal());
 
 	}
 
