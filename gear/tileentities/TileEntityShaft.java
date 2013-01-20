@@ -1,6 +1,7 @@
 package logico.geartech.gear.tileentities;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 import logico.geartech.Orientation;
@@ -10,7 +11,6 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
 public class TileEntityShaft extends TileEntity {
@@ -59,6 +59,10 @@ public class TileEntityShaft extends TileEntity {
 		return orientation;
 
 	}
+        
+        public Set getConnections() {
+            return connectedSides;
+        }
 
 	public boolean isConnectedOnSide (final ForgeDirection side) {
 
@@ -184,11 +188,10 @@ public class TileEntityShaft extends TileEntity {
 
 	@Override public void onDataPacket (final INetworkManager net, final Packet132TileEntityData packet) {
 
-		final NBTTagCompound tag = packet.customParam1;
-
-		orientation = Orientation.values()[tag.getInteger("Orientation")];
-		rotation = tag.getInteger("Direction");
-		rotationSpeed = tag.getFloat("RotationSpeed");
+                if (worldObj.isRemote) {
+                    final NBTTagCompound tag = packet.customParam1;
+                    readFromNBT(tag);
+                }
 
 	}
 
@@ -199,6 +202,14 @@ public class TileEntityShaft extends TileEntity {
 		rotation = tagCompound.getInteger("Direction");
 		rotationSpeed = tagCompound.getFloat("RotationSpeed");
 		orientation = Orientation.values()[tagCompound.getInteger("Orientation")];
+                
+                NBTTagCompound connections = tagCompound.getCompoundTag("Connections");
+                if (connections.getBoolean("Forward")) {
+                    setConnectedOnSide(orientation.defaultSide);
+                }
+                if (connections.getBoolean("Backward")) {
+                    setConnectedOnSide(orientation.defaultSide.getOpposite());
+                }
 
 	}
 
